@@ -33,8 +33,8 @@ class Fixture(models.Model):
     ida_vuelta = models.BooleanField(default=False)
     cantidad_partidos = models.IntegerField(blank=True)
     tabla_posiciones = models.BooleanField(default=False)
-    puntos_por_ganados = models.IntegerField(null=True, default=3)
-    puntos_por_empate = models.IntegerField(null=True, default=1)
+    puntos_por_ganados = models.IntegerField(null=True, default=0)
+    puntos_por_empate = models.IntegerField(null=True, default=0)
     competicion = models.ForeignKey(Competicion,
                                 on_delete=models.CASCADE)
 
