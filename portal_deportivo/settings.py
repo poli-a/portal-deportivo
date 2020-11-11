@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'portal.apps.PortalConfig',
     'competiciones.apps.CompeticionesConfig',
+    'comunidad.apps.ComunidadConfig',
 ]
 
 MIDDLEWARE = [
