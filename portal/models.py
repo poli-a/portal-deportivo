@@ -1,11 +1,13 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.conf import settings
+
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique=True)
-    usuario = models.ForeignKey(User,
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL,
                                 null=True,
                                 on_delete=models.SET_NULL)
     created = models.DateTimeField(auto_now_add=True)
