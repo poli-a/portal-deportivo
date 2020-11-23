@@ -3,4 +3,4 @@ from .models import Usuario
 
 @admin.register(Usuario)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['usuario', 'nombre', 'apellido', 'imagen']
+    list_display = ['usuario', 'imagen']
