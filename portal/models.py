@@ -28,7 +28,8 @@ class Noticia(models.Model):
     usuario = models.ForeignKey(User,
                                 null=True,
                                 on_delete=models.SET_NULL)
-    categoria = models.OneToOneField(Categoria,
+    categoria = models.ForeignKey(Categoria,
+                                unique=False,
                                 null=True,
                                 on_delete=models.SET_NULL)
     nota = models.TextField()
