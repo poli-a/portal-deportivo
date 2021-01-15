@@ -7,3 +7,7 @@ from .serializers import *
 class NoticiaViewset(viewsets.ModelViewSet):
     queryset = Noticia.objects.all()
     serializer_class = NoticiaSerializers
+
+class CategoriaViewset(viewsets.ModelViewSet):
+    queryset = Categoria.objects.all()
+    serializer_class = CategoriaSerializers

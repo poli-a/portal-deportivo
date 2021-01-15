@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Noticia
+from .models import *
 
 class NoticiaSerializers(serializers.ModelSerializer):
     username = serializers.CharField(read_only = True, source = "usuario.username")
@@ -7,3 +7,8 @@ class NoticiaSerializers(serializers.ModelSerializer):
     class Meta:
         model = Noticia
         exclude = ['created', 'updated']
+
+class CategoriaSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Categoria
+        fields = '__all__'
