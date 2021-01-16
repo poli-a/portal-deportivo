@@ -5,7 +5,7 @@ from django.conf import settings
 
 
 class Categoria(models.Model):
-    nombre = models.CharField(max_length=250)
+    nombre = models.CharField(max_length=250, unique=True)
     slug = models.SlugField(max_length=250, unique=True)
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,
                                 null=True,
