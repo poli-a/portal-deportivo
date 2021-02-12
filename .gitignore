@@ -4,3 +4,5 @@
 *.pyc
 .envs
 media/
+__pycache__/
+*.pyc
