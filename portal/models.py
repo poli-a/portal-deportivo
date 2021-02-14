@@ -32,6 +32,7 @@ class Noticia(models.Model):
                                 unique=False,
                                 null=True,
                                 on_delete=models.SET_NULL)
+    descripcion = models.TextField(null=True)
     nota = models.TextField()
     media_url = models.TextField()
     fecha_publicacion = models.DateTimeField(default=timezone.now)
