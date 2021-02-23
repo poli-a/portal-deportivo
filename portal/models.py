@@ -41,6 +41,7 @@ class Noticia(models.Model):
     status = models.CharField(max_length=10,
                             choices=STATUS_CHOICES,
                             default='pendiente')
+    img = models.ImageField(upload_to = 'img', null=True)
     class Meta:
         ordering = ('-fecha_publicacion',)
     def __str__(self):
