@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.conf import settings
+from cloudinary.models import CloudinaryField
 
 
 class Categoria(models.Model):
@@ -34,15 +35,18 @@ class Noticia(models.Model):
                                 on_delete=models.SET_NULL)
     descripcion = models.TextField(null=True)
     nota = models.TextField()
-    media_url = models.TextField()
     fecha_publicacion = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10,
                             choices=STATUS_CHOICES,
                             default='pendiente')
-    img = models.ImageField(upload_to = 'img', null=True)
+    img = CloudinaryField('img', null=True)
     class Meta:
         ordering = ('-fecha_publicacion',)
+
     def __str__(self):
         return self.titulo
+
+    def get_image_url(self):
+        return'{}{}'.format(settings.CLOUDINARY_URL, self.img)

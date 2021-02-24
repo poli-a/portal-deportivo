@@ -4,6 +4,7 @@ from .models import *
 class NoticiaSerializers(serializers.ModelSerializer):
     username = serializers.CharField(read_only = True, source = "usuario.username")
     nombreCategoria = serializers.CharField(read_only = True, source = "categoria.nombre")
+    media_url = serializers.CharField(read_only = True, source = "img.url")
     
     class Meta:
         model = Noticia

@@ -14,6 +14,9 @@ from pathlib import Path
 import dj_database_url
 import django_heroku
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
@@ -142,6 +145,15 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+## Config de cloudinary p/ guardado y persistencia de imagenes ##
+cloudinary.config( 
+  cloud_name = "dcgqlumoy", 
+  api_key = "295865121973677", 
+  api_secret = "w7dopjlsXxAW5xNR49BfMdr3jp8" 
+)
+
+CLOUDINARY_URL = 'cloudinary://295865121973677:w7dopjlsXxAW5xNR49BfMdr3jp8@dcgqlumoy'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
