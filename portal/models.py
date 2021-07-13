@@ -47,6 +47,3 @@ class Noticia(models.Model):
 
     def __str__(self):
         return self.titulo
-
-    def get_image_url(self):
-        return'{}{}'.format(settings.CLOUDINARY_URL, self.img)

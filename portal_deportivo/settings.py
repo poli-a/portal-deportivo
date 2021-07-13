@@ -45,12 +45,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'users.apps.UsersConfig',
     'portal.apps.PortalConfig',
     'competiciones.apps.CompeticionesConfig',
     'comunidad.apps.ComunidadConfig',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -95,16 +106,16 @@ WSGI_APPLICATION = 'portal_deportivo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': Path(BASE_DIR, 'db.sqlite3'),
     }
-}'''
-
-DATABASES = {
-    'default' : dj_database_url.config()
 }
+
+'''DATABASES = {
+    'default' : dj_database_url.config()
+}'''
 
 
 # Password validation

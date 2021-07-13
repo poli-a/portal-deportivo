@@ -1,1 +1,9 @@
+.vscode/
+*.log
+*.pot
+*.pyc
 .envs
+media/
+__pycache__/
+*.pyc
+comands.txt

@@ -6,4 +6,4 @@ gunicorn
 django-heroku
 django-cors-headers
 cloudinary
-
+djangorestframework-simplejwt
