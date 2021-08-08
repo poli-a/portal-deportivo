@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils import timezone
 from portal.models import Categoria
-from django.contrib.auth.models import User
+from users.models import User
+from django.conf import settings
+
 
 class Post(models.Model):
     STATUS_CHOICES = (

@@ -1,6 +1,7 @@
 from django.db import models
 from portal.models import Categoria
-from django.contrib.auth.models import User
+from users.models import User
+from django.conf import settings
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -10,12 +11,13 @@ class Competicion(models.Model):
     categoria = models.ForeignKey(Categoria,
                                 null=True,
                                 on_delete=models.SET_NULL)
-    nombre = models.CharField(max_length=250) # Nombre del torneo/competicion
+    nombre = models.CharField(max_length=250, unique=True) # Nombre del torneo/competicion
     usuario = models.ForeignKey(User,
                                 null=True,
                                 on_delete=models.SET_NULL)
     class Meta:
         ordering = ('nombre',)
+
     def __str__(self):
         return self.nombre
 
@@ -31,12 +33,15 @@ class Fixture(models.Model):
     cantidad_equipos = models.IntegerField(default=3,
                                     validators=[MaxValueValidator(64), MinValueValidator(2)])
     ida_vuelta = models.BooleanField(default=False)
-    cantidad_partidos = models.IntegerField(blank=True)
+    cantidad_partidos = models.IntegerField(blank=True, default=1)
     tabla_posiciones = models.BooleanField(default=False)
     puntos_por_ganados = models.IntegerField(null=True, default=0)
     puntos_por_empate = models.IntegerField(null=True, default=0)
     competicion = models.ForeignKey(Competicion,
                                 on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre
 
 class Equipo(models.Model):
     categoria = models.ForeignKey(Categoria,
@@ -65,13 +70,13 @@ class Partido(models.Model):
     tarjetas_visitante = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.sede
+        return str(self.equipo_local) + ' vs ' + str(self.equipo_visitante)
 
 class Tabla(models.Model):
     fixture = models.ForeignKey(Fixture,
                                 on_delete=models.CASCADE)
     equipo = models.ForeignKey(Equipo,
-                                on_delete=models.CASCADE)
+                                on_delete=models.CASCADE, null=True)
     puntos = models.IntegerField(default=0)
     partidos_jugados = models.IntegerField(default=0)
     partidos_ganados = models.IntegerField(default=0)
@@ -83,6 +88,10 @@ class Tabla(models.Model):
     class Meta:
         ordering = ('puntos',)
 
+    def __str__(self):
+        f = Fixture.objects.filter(id = self.fixture.id).first()
+        return f.nombre
+
 class Jugador(models.Model):
     equipo = models.ForeignKey(Equipo,
                                 on_delete=models.CASCADE)
@@ -91,6 +100,7 @@ class Jugador(models.Model):
     
     class Meta:
         ordering = ('nombre',)
+
     def __str__(self):
         return self.nombre
 
@@ -103,8 +113,10 @@ class Ranking_Gol(models.Model):
 
     class Meta:
         ordering = ('goles',)
+
     def __str__(self):
-        return self.jugador
+        c = Competicion.objects.filter(id = self.competicion.id).first()
+        return c.nombre
 
 class Ranking_Tarjeta(models.Model):
     competicion = models.ForeignKey(Competicion,
@@ -115,4 +127,5 @@ class Ranking_Tarjeta(models.Model):
     tarjetas_amarillas = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.jugador
+        c = Competicion.objects.filter(id = self.competicion.id).first()
+        return c.nombre

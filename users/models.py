@@ -1,12 +1,11 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 
-class Usuario(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                    on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to='users/perfil/',
-                                blank=True)
-    is_admin = models.BooleanField(default = False)
+
     
-    def __str__(self):
-        return f'Perfil de usuario {self.usuario.email}'
+class User(AbstractUser):
+    username = models.CharField(max_length = 30, unique=True)
+    is_active = models.BooleanField(default=True)
+    USERNAME_FIELD = 'username'
+    is_admin = models.BooleanField(default = False)

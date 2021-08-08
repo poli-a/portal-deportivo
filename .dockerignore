@@ -6,4 +6,4 @@
 media/
 __pycache__/
 *.pyc
-comands.txt
+./comands.txt

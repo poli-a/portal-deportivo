@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework.authtoken',
     'users.apps.UsersConfig',
     'portal.apps.PortalConfig',
     'competiciones.apps.CompeticionesConfig',
@@ -117,6 +118,7 @@ DATABASES = {
     'default' : dj_database_url.config()
 }'''
 
+'''DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)'''
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -157,6 +159,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
+AUTH_USER_MODEL = 'users.User'
+
 ## Config de cloudinary p/ guardado y persistencia de imagenes ##
 cloudinary.config( 
   cloud_name = "dcgqlumoy", 
@@ -177,3 +181,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = Path(BASE_DIR, 'media/')
 
 django_heroku.settings(locals())
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'

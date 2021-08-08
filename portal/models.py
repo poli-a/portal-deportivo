@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from users.models import User
 from django.conf import settings
 from cloudinary.models import CloudinaryField
 
@@ -8,7 +8,7 @@ from cloudinary.models import CloudinaryField
 class Categoria(models.Model):
     nombre = models.CharField(max_length=250, unique=True)
     slug = models.SlugField(max_length=250, unique=True)
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL,
+    usuario = models.ForeignKey(User,
                                 null=True,
                                 on_delete=models.SET_NULL)
     created = models.DateTimeField(auto_now_add=True)

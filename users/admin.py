@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Usuario
+from .models import User
 
-@admin.register(Usuario)
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['usuario', 'imagen']
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'username')
+    

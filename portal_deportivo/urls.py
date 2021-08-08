@@ -27,7 +27,8 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('', include(('users.urls', 'users'), namespace='users')),
-    path('', include(('portal.urls', 'noticias'), namespace='noticias'))
+    path('', include(('portal.urls', 'noticias'), namespace='noticias')),
+    path('', include(('competiciones.urls', 'competiciones'), namespace='competiciones'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 '''if settings.DEBUG:
