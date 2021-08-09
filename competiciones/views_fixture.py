@@ -22,7 +22,7 @@ def fixture_api_view(request):
     elif request.method == 'POST':
         
         request = calcularCantPartidos(request)
-        
+
         fixture_serializer = FixtureSerializer(data = request.data)
         if fixture_serializer.is_valid():
             fixture_serializer.save()
@@ -39,7 +39,6 @@ def fixture_detail_api_view(request, pk=None):
     
         # Devuelve el detalle de un fixtures #
         if request.method == 'GET':
-            # devuelve un fixture o un string vacio #
             fixture_serializer = FixtureSerializer(fixture)
             return Response(fixture_serializer.data)
 
@@ -69,24 +68,27 @@ def fixture_detail_api_view(request, pk=None):
             fixture.delete()
             return Response({'message': 'Fixture eliminado.'})
 
-    return Response({'message': 'No se encontro competicion con ese id.'}, status = status.HTTP_400_BAD_REQUEST)
+    return Response({'message': 'No se encontro fixture con ese id.'}, status = status.HTTP_400_BAD_REQUEST)
 
 # Calcula la cantidad de partidos para el fixture segun la cant de equipos y la modalidad #
 def calcularCantPartidos(request):
 
     # Modalidad partido unico #
-    if request.data['modalidad'] == 'partido_unico':
-        request.data['cantidad_partidos'] = 1
+    if request.data ['modalidad'] == 'partido_unico':
+        request.data ['cantidad_partidos'] = 1
+
     # Modalidad torneo los equipos se enfrentan todos contra todos #
-    if request.data['modalidad'] == 'torneo':
-        request.data['cantidad_partidos'] = request.data['cantidad_equipos'] * (request.data['cantidad_equipos'] - 1)
+    if request.data ['modalidad'] == 'torneo':
+        request.data ['cantidad_partidos'] = request.data ['cantidad_equipos'] * (request.data ['cantidad_equipos'] - 1)
+        # Se indica que debe poseer una tabla de posiciones asociadas #
+        request.data ['tabla_posiciones'] = True
         
     # Modalidad playoff, empareja a los equipos p/ eliminacion directa #
-    if request.data['modalidad'] == 'playoff':
-        request.data['cantidad_partidos'] = request.data['cantidad_equipos'] / 2
+    if request.data ['modalidad'] == 'playoff': 
+        request.data ['cantidad_partidos'] = request.data ['cantidad_equipos'] / 2
 
     # Duplica la cant de partidos si corresponde jugar ida y vuelta #
-    if request.data['ida_vuelta'] == True:
-        request.data['cantidad_partidos'] = request.data['cantidad_partidos'] * 2
+    if request.data ['ida_vuelta'] == True:
+        request.data ['cantidad_partidos'] = request.data ['cantidad_partidos'] * 2
 
     return request
